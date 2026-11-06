@@ -25,10 +25,12 @@ A lightweight, robust Bash script designed to automate daily system updates and 
    git clone [https://github.com/Michdo93/cron-update-manager](https://github.com/Michdo93/cron-update-manager)
    cd cron-update-manager
    ```
+
 2. Make the script executable:
    ```bash
    chmod +x install.sh
    ```
+
 3. Run the installation script:
    ```bash
    sudo ./install.sh
