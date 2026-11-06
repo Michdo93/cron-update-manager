@@ -22,7 +22,7 @@ A lightweight, robust Bash script designed to automate daily system updates and 
 
 1. Clone the repository or download the script:
    ```bash
-   git clone [https://github.com/Michdo93/cron-update-manager](https://github.com/Michdo93/cron-update-manager)
+   git clone https://github.com/Michdo93/cron-update-manager
    cd cron-update-manager
    ```
 
