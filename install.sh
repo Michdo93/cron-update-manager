@@ -1,18 +1,21 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 #
 # Auto-Update Installer for Ubuntu, Debian, Raspberry Pi OS, and DietPi
 # Runs daily at 03:00 AM via cron.
 
 set -e
 
+# Get current user ID portably for sh/bash
+USER_ID=$(id -u)
+
 # Ensure script is run with administrative privileges (either root or sudoable user)
-if [ "$EUID" -ne 0 ] && ! command -v sudo &> /dev/null; then
+if [ "$USER_ID" -ne 0 ] && ! command -v sudo >/dev/null 2>&1; then
     echo "[-] Error: This script must be run as root or with sudo privileges." >&2
     exit 1
 fi
 
 # Determine wrapper for root commands
-if [ "$EUID" -eq 0 ]; then
+if [ "$USER_ID" -eq 0 ]; then
     SUDO=""
 else
     SUDO="sudo"
