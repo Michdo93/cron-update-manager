@@ -15,6 +15,9 @@ A lightweight, robust Bash script designed to automate daily system updates and 
 * **Privilege Awareness:** Checks if `sudo` is available; runs commands directly as `root` if `sudo` is missing (e.g., in LXC containers).
 * **Automated Cron Scheduling:** Safely registers a daily cron job at 03:00 AM without duplicating existing entries.
 * **Optimized Update Routines:** Tailored package manager commands for each supported system, including automated cleanups and dependency removals.
+* **Unattended-safe:** `--force-confdef`/`--force-confold` keep `dpkg` from stopping at a "configuration file modified" question at 03:00 (your local changes are kept).
+* **Logging:** Every run is appended to `/var/log/system-auto-update.log` (rotated monthly via logrotate).
+* **Rollout over SSH:** [ssh-cron-update-manager](https://github.com/Michdo93/ssh-cron-update-manager) installs it on a whole IPv4 range.
 
 ## Installation & Usage
 
@@ -53,6 +56,15 @@ The script adds the following entry to the system crontab:
 ```cron
 0 3 * * * /usr/local/bin/system-auto-update.sh >/dev/null 2>&1
 ```
+
+The generated `/usr/local/bin/system-auto-update.sh` writes its own output to
+`/var/log/system-auto-update.log`. Run it once by hand to test it:
+
+```bash
+sudo /usr/local/bin/system-auto-update.sh && sudo tail /var/log/system-auto-update.log
+```
+
+Re-running `install.sh` is safe: the update script is regenerated and the cron entry is not duplicated.
 
 ## License
 
